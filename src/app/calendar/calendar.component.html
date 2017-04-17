@@ -1,0 +1,56 @@
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div style="display: flex; justify-content: center">
+                    <p-calendar [(ngModel)]="appoitment.dayOfApoitment" [minDate]="today" [inline]="true"></p-calendar>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-1">
+            <div class="col-sm-12">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <h3>Make appoitment</h3>
+                        <hr/>
+                        <div class="form-group">
+                            <label for="textArea" class="col-lg-2 control-label">Appoitment:</label>
+                            <div class="col-lg-10">
+                                <textarea name='appoitment' [(ngModel)]="appoitment.text" class="form-control">  </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Selected Date:</label>
+                            <div class="col-lg-10">
+                                <label class="control-label"> {{appoitment.dayOfApoitment|date}}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-10 no-padding">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" (click)='makeApoitment()'>Make appoitment</button>
+                        </div>
+                        <div *ngIf='!isOkay' class="col-sm-12 margin-top-1 no-padding">
+                            <div class="alert  alert-danger">
+                                <strong> There is already an appoitment in {{appoitment.dayOfApoitment|date}}</strong> Please selcet another date.
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="row margin-top-1">
+            <div class="col-sm-12">
+                <h3>Appoitments</h3>
+                <hr/>
+                <ul class="list-group">
+                    <li [ngClass]="{'active': item.isEdit}" *ngFor="let item of appoitments" class="list-group-item" (click)='selectItem(item)'>
+                        <span>{{item.text}}</span>
+                        <span>{{item.dayOfApoitment|date}}</span>
+                        <span style="float: right" (click)='removeItem(item)'> &times;</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
